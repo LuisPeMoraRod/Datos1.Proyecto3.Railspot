@@ -1,16 +1,22 @@
 {
-  "name": "react-boilerplate",
+  "name": "Datos1.Proyecto3.Railspot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "![](http://i.imgur.com/5Bqs5zi.png)",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moniwm/Datos1.Proyecto3.Railspot.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-clean-css": "^2.0.10",
-    "gulp-sass": "^2.3.1"
-  }
+  "bugs": {
+    "url": "https://github.com/moniwm/Datos1.Proyecto3.Railspot/issues"
+  },
+  "homepage": "https://github.com/moniwm/Datos1.Proyecto3.Railspot#readme"
 }
