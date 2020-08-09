@@ -16,6 +16,7 @@ public class Station {
 	public Station (String name) {
 		this.name = name;
 		this.accumWeight = new Float(0.0);
+		connections = new ArrayList<Connection>();
 	}
 
 	public String getName() {
