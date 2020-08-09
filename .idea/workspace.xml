@@ -21,7 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="cb880c4e-febb-48bf-935c-fa508ff6e5c0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/railspot/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/railspot/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/railspot/src/App.test.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +56,8 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.prettier.on.save" value="true" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -111,6 +113,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="437" y="166" key="#JavaScript" timestamp="1596912735042">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="437" y="166" key="#JavaScript/0.0.1440.900@0.0.1440.900" timestamp="1596912735042" />
     <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596754158330">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -131,5 +137,13 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="689" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1596756392387" />
+    <state x="221" y="89" key="SettingsEditor" timestamp="1596912759218">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="221" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1596912759218" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1596912746697">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1596912746697" />
   </component>
 </project>
