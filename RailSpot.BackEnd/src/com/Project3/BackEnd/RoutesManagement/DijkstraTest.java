@@ -17,8 +17,9 @@ class DijkstraTest {
 	Station turrialba = new Station ("Turrialba");
 	Station hojancha = new Station ("Hojancha");
 
-	@Before
-	public void setUp() {
+	@Test
+	public void test() {
+		
 		graph = Graph.getInstance();
 		graph.addStation(cartago);
 		graph.addStation(sanJose);
@@ -55,17 +56,20 @@ class DijkstraTest {
 
 		Connection tuToH = new Connection(hojancha, (float) 180);
 		turrialba.addConnection(tuToH);
-	}
-
-	@Test
-	public void test() {
+		
 		Dijkstra dijkstra = new Dijkstra();
+		
 		ArrayList<Station> route = dijkstra.execute(cartago, hojancha);
 		ArrayList<Station> expected = new ArrayList<Station>();
 		expected.add(cartago); 
 		expected.add(heredia);
 		expected.add(hojancha);
 		assertEquals(expected, route);
+		
+		System.out.println("route: ");
+		for (Station temp : route) {
+			System.out.println(temp.getName());
+		}
 	}
 
 }
