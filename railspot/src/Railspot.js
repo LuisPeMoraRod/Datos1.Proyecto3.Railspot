@@ -14,7 +14,7 @@ export default class Railspot extends React.Component{
 		return (
             <Router>
                 <body>
-                    <Route path="/LogIn" component={LogIn} />
+                    <Route path="/" exact component={LogIn} />
                     <Route path="/HomePage" component={HomePage}/>
                     <Route path="/SignUp" component={SignUp} />
                     <Route path="/ModifyRoutes" component={ModifyRoutes} />
