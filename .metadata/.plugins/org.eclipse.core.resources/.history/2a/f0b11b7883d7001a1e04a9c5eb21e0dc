@@ -1,0 +1,46 @@
+package com.Project3.BackEnd.RoutesManagement;
+
+import java.util.HashMap;
+
+public class Station {
+	/**
+	 * @author Luis Pedro Morales Rodriguez
+	 * @version 5/8/2020
+	 */
+	
+	private String name;
+	private String location;
+	private HashMap<Station,Float> routes;
+	
+	public Station (String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public HashMap<Station, Float> getRoutes() {
+		return routes;
+	}
+
+	public void setRoutes(HashMap<Station, Float> routes) {
+		this.routes = routes;
+	}
+	
+	public void addRoute(Station station, Float distance) {
+		if (!this.routes.containsKey(station)) routes.put(station, distance);
+	}
+}
