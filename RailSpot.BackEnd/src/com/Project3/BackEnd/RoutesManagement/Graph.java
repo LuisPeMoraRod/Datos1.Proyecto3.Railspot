@@ -32,5 +32,12 @@ public class Graph {
 		if (this.stations.contains(station)) stations.remove(station);
 	}
 	
+	public Station getStation(String stationName) {
+		Station station = null;
+		for(Station element : this.stations) {
+			if (element.getName().equals(stationName)) station = element;
+		}
+		return station;
+	}
 
 }

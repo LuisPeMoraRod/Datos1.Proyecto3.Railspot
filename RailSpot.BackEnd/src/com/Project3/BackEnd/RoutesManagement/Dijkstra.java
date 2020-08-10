@@ -45,7 +45,7 @@ public class Dijkstra {
 
 			if (tempStation.getConnections() != null) {// if station has at least one connection
 				for (Connection connection : tempStation.getConnections()) {
-					Station tempDestiny = connection.getDestiny();
+					Station tempDestiny = graph.getStation(connection.getDestiny());
 					Float tempDistance = connection.getDistance() + tempStation.getAccumWeight();// accumulated distance
 																									// from origin to
 																									// current station

@@ -11,8 +11,8 @@ public class Connection {
 		this.price = distance * 25;
 		
 	}
-	public Station getDestiny() {
-		return destiny;
+	public String getDestiny() {
+		return destiny.getName();
 	}
 	public void setDestiny(Station destiny) {
 		this.destiny = destiny;
