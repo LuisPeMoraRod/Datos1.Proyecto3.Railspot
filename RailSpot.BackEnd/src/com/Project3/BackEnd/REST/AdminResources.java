@@ -17,10 +17,10 @@ import com.Project3.BackEnd.RoutesManagement.Connection;
 import com.Project3.BackEnd.RoutesManagement.Graph;
 import com.Project3.BackEnd.RoutesManagement.Station;
 
-@Path("/routes")
+@Path("/admin")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class RoutesResources {
+public class AdminResources {
 	Graph graph = Graph.getInstance();
 
 	/**
@@ -114,7 +114,7 @@ public class RoutesResources {
 		Connection connection = station.getConnection(destinyName);
 		if (station.hasConnection(connection)) {
 			station.removeConnection(connection);
-			return Response.status(Status.OK).build();
+			return Response.status(Status.OK).entity("Connection deleted successfully").build();
 		}else {
 			return Response.status(Status.NOT_FOUND).entity("Error: connection to "+stationName+" is unexistent.").build();
 		}

@@ -1,0 +1,14 @@
+Add station (POST)
+http://localhost:8080/RailSpot.BackEnd/api/admin/new_station?name=Alajuela
+
+Get station (GET)
+http://localhost:8080/RailSpot.BackEnd/api/admin/Alajuela
+
+Add connection (PUT)
+http://localhost:8080/RailSpot.BackEnd/api/admin/new_connection/Alajuela?destiny=SanJose&distance=23
+
+Edit connection (PUT)
+http://localhost:8080/RailSpot.BackEnd/api/admin/edit_connection/Alajuela?destiny=SanJose&distance=25
+
+Delete connection (DELETE)
+http://localhost:8080/RailSpot.BackEnd/api/admin/delete_connection/Alajuela?destiny=SanJose
