@@ -30,7 +30,7 @@ public class AdminResources {
 	 * @return response : Response
 	 */
 	@POST
-	@Path("/new_station")
+	@Path("/new-station")
 	public Response addStation(@QueryParam("name") String name) {
 		Station newStation = new Station(name);
 		graph.addStation(newStation);
@@ -64,7 +64,7 @@ public class AdminResources {
 	 * @return response : Response
 	 */
 	@PUT
-	@Path("/new_connection/{stationName}")
+	@Path("/new-connection/{stationName}")
 	public Response newConnection(@PathParam("stationName") String stationName,
 			@QueryParam("destiny") String destinyName, @QueryParam("distance") String dist) {
 		Station station = graph.getStation(stationName);
@@ -83,7 +83,7 @@ public class AdminResources {
 	}
 
 	@PUT
-	@Path("/edit_connection/{stationName}")
+	@Path("/edit-connection/{stationName}")
 	public Response editConnection(@PathParam("stationName") String stationName,
 			@QueryParam("destiny") String destinyName, @QueryParam("distance") String dist) {
 		Station station = graph.getStation(stationName);
@@ -104,7 +104,7 @@ public class AdminResources {
 	}
 
 	@DELETE
-	@Path("delete_connection/{stationName}")
+	@Path("delete-connection/{stationName}")
 	public Response deleteConnection(@PathParam("stationName") String stationName,
 			@QueryParam("destiny") String destinyName) {
 		Station station = graph.getStation(stationName);
