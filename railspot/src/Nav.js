@@ -33,11 +33,17 @@ export default function Nav(){
             <h3>RailSpot</h3>
             <ul className={classes.navLinks}>
 
-                <Link to="/HomePage/trainroutes" style={navStyle}> 
-                    <li>Train Routes</li>
+                <Link to="/Admin" style={navStyle}> 
+                    <li>ADMIN</li>
                 </Link>
-                <Link to="/HomePage/profile" style={navStyle}>
+                <Link to="/BuyTickets" style={navStyle}>
+                    <li>Buy Tickets</li>
+                </Link>
+                <Link to="/Profile" style={navStyle}>
                     <li>Profile</li>
+                </Link>
+                <Link to="/" style={navStyle}>
+                    <li>Log out</li>
                 </Link>
                 
             </ul>  

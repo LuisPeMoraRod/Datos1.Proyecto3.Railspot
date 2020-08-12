@@ -3,6 +3,7 @@ import Ticket from './Ticket';
 import { makeStyles, withTheme } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Nav from "./Nav";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +54,7 @@ export default function Profile() {
 
     return (
         <div className = {classes.profile}>
-
+            <Nav />
             <form className={classes.form}>
 
                 <TextField

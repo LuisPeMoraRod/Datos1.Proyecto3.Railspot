@@ -65,7 +65,7 @@ export default function SignInSide() {
               id="password"
               autoComplete="current-password"
             />
-            <Link to="/HomePage">
+            <Link to="/BuyTickets">
                 <Button
                         type="submit"
                         fullWidth
