@@ -1,10 +1,11 @@
 import React from 'react';
 import Nav from "./Nav";
 
-export default function BuyTickets(){
+export default function TicketsPurchased(){
     return(
+        
         <div>
             <Nav />
-            Buy Tickets</div>
+            TicketsPurchased</div>
     )
 }
