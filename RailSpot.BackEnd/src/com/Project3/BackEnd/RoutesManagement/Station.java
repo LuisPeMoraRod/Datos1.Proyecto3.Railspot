@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 
+import com.Project3.BackEnd.TicketsManagement.Ticket;
+
 public class Station {
 	/**
 	 * @author Luis Pedro Morales Rodriguez
@@ -14,11 +16,13 @@ public class Station {
 	private String location;
 	private ArrayList<Connection> connections;
 	private Float accumWeight;
+	private ArrayList<Ticket> activeTickets;
 	
 	public Station (String name) {
 		this.name = name;
 		this.accumWeight = new Float(0.0);
-		connections = new ArrayList<Connection>();
+		this.connections = new ArrayList<Connection>();
+		this.activeTickets = new ArrayList<Ticket>();
 	}
 
 	public String getName() {
@@ -61,6 +65,8 @@ public class Station {
 	}
 	
 	public boolean hasConnection(Connection connection) {
+		if (connection == null)
+			return false;
 		for (Connection element : this.connections) {
 			if (element.getDestiny().equals(connection.getDestiny())) return true;
 		}
@@ -95,6 +101,18 @@ public class Station {
 		jsonStation.put("location", this.location);
 		return jsonStation;
 		
+	}
+
+	public ArrayList<Ticket> getActiveTickets() {
+		return activeTickets;
+	}
+
+	public void addActiveTicket(Ticket ticket) {
+		this.activeTickets.add(ticket);
+	}
+	
+	public void removeActiveTicket(Ticket ticket) {
+		this.activeTickets.remove(ticket);
 	}
 	
 }

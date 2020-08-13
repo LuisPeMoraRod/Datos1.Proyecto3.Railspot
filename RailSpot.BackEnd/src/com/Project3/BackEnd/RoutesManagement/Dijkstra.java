@@ -22,7 +22,13 @@ public class Dijkstra {
 
 	public Dijkstra() {
 		graph = Graph.getInstance();
-		uncheckedStations = graph.getStations();// adds every station of the graph to the unchecked stations list
+		uncheckedStations = new ArrayList<Station>();
+		// adds every station of the graph to the unchecked stations list
+		Station tempStation;
+		for (int i=0; i<graph.getStations().size();i++) {
+			tempStation = graph.getStations().get(i);
+			uncheckedStations.add(tempStation);
+		}
 		route = new ArrayList<Station>();
 		weights = new HashMap<Station, Float>();
 		procedence = new HashMap<Station, Station>();
@@ -41,7 +47,7 @@ public class Dijkstra {
 		weights.put(origin, (float) 0); // adds origin station with a 0 weight
 		procedence.put(origin, null); // add origin station with null procedence
 		Station tempStation = origin;
-		while (uncheckedStations.size() > 0) {// iterates until uncheckedStations list is empty
+		while (uncheckedStations.size() > 0 || tempStation!=null) {// iterates until uncheckedStations list is empty
 
 			if (tempStation.getConnections() != null) {// if station has at least one connection
 				for (Connection connection : tempStation.getConnections()) {
@@ -180,5 +186,6 @@ public class Dijkstra {
 		for (Station temp : route) {
 			System.out.println(temp.getName());
 		}
+		
 	}
 }

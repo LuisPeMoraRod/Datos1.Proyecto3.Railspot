@@ -23,6 +23,12 @@ import com.Project3.BackEnd.RoutesManagement.Station;
 public class AdminResources {
 	Graph graph = Graph.getInstance();
 
+	@GET
+	@Path("/get-stations")
+	public Response getStations() {
+		return Response.status(Status.OK).entity(graph.getStations()).build();
+	}
+
 	/**
 	 * Add new station to the graph
 	 * 
@@ -92,15 +98,24 @@ public class AdminResources {
 			return Response.status(Status.NOT_FOUND).entity("Error: station " + stationName + " doesn't exist.")
 					.build();
 
-		if (destiny == null)
+		else if (destiny == null)
 			return Response.status(Status.NOT_FOUND).entity("Error: station " + destinyName + " doesn't exist.")
 					.build();
-		Float distance = Float.parseFloat(dist);
-		Connection connection = new Connection(destiny, distance);
-		if (station.editConnection(connection))
-			return Response.status(Status.OK).entity(connection).build();
-		else
-			return Response.status(Status.NOT_FOUND).entity("Error: connection not found.").build();
+
+		if (station.getActiveTickets().size() > 0)
+			return Response.status(Status.CONFLICT).entity("Error: station " + stationName + " has active tickets.")
+					.build();
+		else if (destiny.getActiveTickets().size() > 0)
+			return Response.status(Status.CONFLICT).entity("Error: station " + destinyName + " has active tickets.")
+					.build();
+		else {
+			Float distance = Float.parseFloat(dist);
+			Connection connection = new Connection(destiny, distance);
+			if (station.editConnection(connection))
+				return Response.status(Status.OK).entity(connection).build();
+			else
+				return Response.status(Status.NOT_FOUND).entity("Error: connection not found.").build();
+		}
 	}
 
 	@DELETE
@@ -111,12 +126,18 @@ public class AdminResources {
 		if (station == null)
 			return Response.status(Status.NOT_FOUND).entity("Error: station " + stationName + " doesn't exist.")
 					.build();
-		Connection connection = station.getConnection(destinyName);
-		if (station.hasConnection(connection)) {
-			station.removeConnection(connection);
-			return Response.status(Status.OK).entity("Connection deleted successfully").build();
-		}else {
-			return Response.status(Status.NOT_FOUND).entity("Error: connection to "+stationName+" is unexistent.").build();
+		if (station.getActiveTickets().size() > 0)
+			return Response.status(Status.CONFLICT).entity("Error: station " + stationName + " has active tickets.")
+					.build();
+		else {
+			Connection connection = station.getConnection(destinyName);
+			if (station.hasConnection(connection)) {
+				station.removeConnection(connection);
+				return Response.status(Status.OK).entity("Connection deleted successfully").build();
+			} else {
+				return Response.status(Status.NOT_FOUND)
+						.entity("Error: connection to " + stationName + " is unexistent.").build();
+			}
 		}
 	}
 

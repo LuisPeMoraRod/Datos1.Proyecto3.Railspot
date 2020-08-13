@@ -4,11 +4,52 @@ http://localhost:8080/RailSpot.BackEnd/api/admin/new-station?name=Alajuela
 Get station (GET)
 http://localhost:8080/RailSpot.BackEnd/api/admin/Alajuela
 
+Get all stations (GET)
+http://localhost:8080/RailSpot.BackEnd/api/admin/get-stations
+
 Add connection (PUT)
-http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/Alajuela?destiny=SanJose&distance=23
+http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/Alajuela?destiny=SanJose&distance=15
 
 Edit connection (PUT)
 http://localhost:8080/RailSpot.BackEnd/api/admin/edit-connection/Alajuela?destiny=SanJose&distance=25
 
 Delete connection (DELETE)
 http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/Alajuela?destiny=SanJose
+
+Sign up new user (POST)
+http://localhost:8080/RailSpot.BackEnd/api/sign-up
+Body
+{
+    "id":"901090674",
+    "name":"Luis Pedro Morales",
+    "email":"luismorarod98@estudiantec.cr",
+    "password":"password",
+    "admin":false
+}
+
+Get user info (GET)
+http://localhost:8080/RailSpot.BackEnd/api/users/901090674
+
+Buy tickets (GET)
+http://localhost:8080/RailSpot.BackEnd/api/tickets/buy-ticket
+Body
+{
+    "user":"901090674",
+    "origin":"Alajuela",
+    "destiny":"Cartago",
+    "date":"12-8-2020",
+    "hour":"15:00",
+    "amount":1
+}
+
+Get tickets by date (GET)
+http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-date/12-8-2020
+
+Get tickets by user (GET)
+http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-user/901090674
+
+Get tickets by station (GET)
+http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-station/SanJose
+
+Remove active tickets by date and hour (DELETE)
+http://localhost:8080/RailSpot.BackEnd/api/tickets/remove-unactive-tickets?date=12-8-2020&hour=15:00
