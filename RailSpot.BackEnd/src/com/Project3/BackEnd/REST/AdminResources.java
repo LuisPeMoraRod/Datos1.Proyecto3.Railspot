@@ -69,7 +69,7 @@ public class AdminResources {
 	 * @param dist        : String
 	 * @return response : Response
 	 */
-	@PUT
+	@POST
 	@Path("/new-connection/{stationName}")
 	public Response newConnection(@PathParam("stationName") String stationName,
 			@QueryParam("destiny") String destinyName, @QueryParam("distance") String dist) {
@@ -88,7 +88,7 @@ public class AdminResources {
 		return Response.status(Status.OK).entity(connection).build();
 	}
 
-	@PUT
+	@POST
 	@Path("/edit-connection/{stationName}")
 	public Response editConnection(@PathParam("stationName") String stationName,
 			@QueryParam("destiny") String destinyName, @QueryParam("distance") String dist) {
@@ -118,7 +118,7 @@ public class AdminResources {
 		}
 	}
 
-	@DELETE
+	@POST
 	@Path("delete-connection/{stationName}")
 	public Response deleteConnection(@PathParam("stationName") String stationName,
 			@QueryParam("destiny") String destinyName) {

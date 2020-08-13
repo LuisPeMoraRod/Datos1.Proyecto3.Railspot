@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -122,7 +122,7 @@ public class TicketsResources {
 		return Response.status(Status.NO_CONTENT).entity("There are no active tickets for this date.").build();
 	}
 
-	@DELETE
+	@POST
 	@Path("/remove-unactive-tickets")
 	public Response removeTicketsByDate(@QueryParam("date") String date, @QueryParam("hour") String hour) {
 		ArrayList<Ticket> tickets = graph.getTickets();
