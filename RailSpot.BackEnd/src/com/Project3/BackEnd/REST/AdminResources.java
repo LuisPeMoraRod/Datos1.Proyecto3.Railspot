@@ -1,10 +1,10 @@
 package com.Project3.BackEnd.REST;
 
+import java.util.ArrayList;
+
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -16,18 +16,15 @@ import javax.ws.rs.core.Response.Status;
 import com.Project3.BackEnd.RoutesManagement.Connection;
 import com.Project3.BackEnd.RoutesManagement.Graph;
 import com.Project3.BackEnd.RoutesManagement.Station;
+import com.Project3.BackEnd.TicketsManagement.Ticket;
+import com.Project3.BackEnd.TicketsManagement.User;
 
 @Path("/admin")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AdminResources {
 	Graph graph = Graph.getInstance();
-
-	@GET
-	@Path("/get-stations")
-	public Response getStations() {
-		return Response.status(Status.OK).entity(graph.getStations()).build();
-	}
+	RegisteredUsers users = RegisteredUsers.getInstance();
 
 	/**
 	 * Add new station to the graph
@@ -59,6 +56,24 @@ public class AdminResources {
 		else
 			return Response.status(Status.NOT_FOUND).entity("Error: station " + stationName + " doesn't exist.")
 					.build();
+	}
+
+	/**
+	 * Delete a station only if it has no active tickets
+	 * @param stationName : String
+	 * @return response : Response
+	 */
+	@POST
+	@Path("/delete-station/{stationName}")
+	public Response deleteStation(@PathParam("stationName") String stationName) {
+		Station station = graph.getStation(stationName);
+		if (station != null) {
+			if (station.getActiveTickets().size()>0)
+				return Response.status(Status.CONFLICT).entity("Error: station has active tickets.").build();
+			graph.removeStation(station);
+			return Response.status(Status.OK).entity("Station removed from the graph successfully.").build();
+		}
+		return Response.status(Status.NOT_FOUND).entity("Error: no station found with the name "+stationName).build();
 	}
 
 	/**
@@ -139,6 +154,42 @@ public class AdminResources {
 						.entity("Error: connection to " + stationName + " is unexistent.").build();
 			}
 		}
+	}
+
+	/**
+	 * Removes active tickets in specific date and hour
+	 * 
+	 * @param date : String
+	 * @param hour : String
+	 * @return response : Response
+	 */
+	@POST
+	@Path("/remove-unactive-tickets")
+	public Response removeTicketsByDate(@QueryParam("date") String date, @QueryParam("hour") String hour) {
+		ArrayList<Ticket> tickets = graph.getTickets();
+		for (Ticket ticket : tickets) {
+			if (ticket.getDate().equals(date) && ticket.getHour().equals(hour))
+				removeTicketFromQueues(ticket);
+		}
+		return Response.status(Status.OK).entity("Tickets for " + date + " at " + hour + " were removed successfully.")
+				.build();
+	}
+
+	/**
+	 * Removes ticket from every list
+	 * 
+	 * @param ticket : String
+	 */
+	public void removeTicketFromQueues(Ticket ticket) {
+		String destinyName = ticket.getArrivalStation();
+		String originName = ticket.getDepartureStation();
+		Station destiny = graph.getStation(destinyName);
+		Station origin = graph.getStation(originName);
+		User user = users.getUser(ticket.getUserId());
+		destiny.removeActiveTicket(ticket);
+		origin.removeActiveTicket(ticket);
+		user.removeTicket(ticket);
+		graph.removeTicket(ticket);
 	}
 
 }

@@ -5,7 +5,7 @@ Get station (GET)
 http://localhost:8080/RailSpot.BackEnd/api/admin/Alajuela
 
 Get all stations (GET)
-http://localhost:8080/RailSpot.BackEnd/api/admin/get-stations
+http://localhost:8080/RailSpot.BackEnd/api/tickets/get-stations
 
 Add connection (POST)
 http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/Alajuela?destiny=SanJose&distance=15
@@ -15,6 +15,12 @@ http://localhost:8080/RailSpot.BackEnd/api/admin/edit-connection/Alajuela?destin
 
 Delete connection (POST)
 http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/Alajuela?destiny=SanJose
+
+Remove active tickets by date and hour (POST)
+http://localhost:8080/RailSpot.BackEnd/api/admin/remove-unactive-tickets?date=12-8-2020&hour=15:00
+
+Delete station (POST)
+http://localhost:8080/RailSpot.BackEnd/api/admin/delete-station/Alajuela
 
 Sign up new user (POST)
 http://localhost:8080/RailSpot.BackEnd/api/sign-up
@@ -30,7 +36,7 @@ Body
 Get user info (GET)
 http://localhost:8080/RailSpot.BackEnd/api/users/901090674
 
-Buy tickets (GET)
+Buy tickets (POST)
 http://localhost:8080/RailSpot.BackEnd/api/tickets/buy-ticket
 Body
 {
@@ -51,5 +57,5 @@ http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-user/901090674
 Get tickets by station (GET)
 http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-station/SanJose
 
-Remove active tickets by date and hour (POST)
-http://localhost:8080/RailSpot.BackEnd/api/tickets/remove-unactive-tickets?date=12-8-2020&hour=15:00
+Get all active tickets (GET)
+http://localhost:8080/RailSpot.BackEnd/api/tickets/get-all-tickets

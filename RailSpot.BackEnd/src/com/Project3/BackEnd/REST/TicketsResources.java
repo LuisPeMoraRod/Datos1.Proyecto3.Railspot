@@ -9,7 +9,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -30,13 +29,19 @@ public class TicketsResources {
 	Graph graph = Graph.getInstance();
 	RegisteredUsers users = RegisteredUsers.getInstance();
 
+	@GET
+	@Path("/get-stations")
+	public Response getStations() {
+		return Response.status(Status.OK).entity(graph.getStations()).build();
+	}
+
 	/**
 	 * Buy new tickets depending on the most optimum route
 	 * 
 	 * @param ticketRequest
 	 * @return response : Response
 	 */
-	@GET
+	@POST
 	@Path("/buy-ticket")
 	public Response buyTicket(JSONObject ticketRequest) {
 		String id = (String) ticketRequest.get("user");
@@ -121,17 +126,15 @@ public class TicketsResources {
 			return Response.status(Status.OK).entity(ticketsByDate).build();
 		return Response.status(Status.NO_CONTENT).entity("There are no active tickets for this date.").build();
 	}
-
-	@POST
-	@Path("/remove-unactive-tickets")
-	public Response removeTicketsByDate(@QueryParam("date") String date, @QueryParam("hour") String hour) {
+	
+	@GET
+	@Path("/get-all-tickets")
+	public Response getAllTickets() {
 		ArrayList<Ticket> tickets = graph.getTickets();
-		for (Ticket ticket : tickets) {
-			if (ticket.getDate().equals(date) && ticket.getHour().equals(hour))
-				removeTicketFromQueues(ticket);
-		}
-		return Response.status(Status.OK).entity("Tickets for "+date+" at "+hour+" were removed successfully.").build();
+		return Response.status(Status.OK).entity(tickets).build();
 	}
+
+	
 
 	/**
 	 * Sets departure hour for next ticket
@@ -178,20 +181,4 @@ public class TicketsResources {
 		graph.addTicket(ticket);
 	}
 
-	/**
-	 * Removes ticket from every list
-	 * 
-	 * @param ticket : String
-	 */
-	public void removeTicketFromQueues(Ticket ticket) {
-		String destinyName = ticket.getArrivalStation();
-		String originName = ticket.getDepartureStation();
-		Station destiny = graph.getStation(destinyName);
-		Station origin = graph.getStation(originName);
-		User user = users.getUser(ticket.getUserId());
-		destiny.removeActiveTicket(ticket);
-		origin.removeActiveTicket(ticket);
-		user.removeTicket(ticket);
-		graph.removeTicket(ticket);
-	}
 }
