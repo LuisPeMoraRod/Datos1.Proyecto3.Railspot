@@ -5,6 +5,7 @@
 	<groupId>RailSpot.BackEnd</groupId>
 	<artifactId>RailSpot.BackEnd</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -23,6 +24,10 @@
 
 	<properties>
 		<jersey.version>1.19</jersey.version>
+		<sonar.projectKey>LuisPeMoraRod_Datos1.Proyecto3.Railspot</sonar.projectKey>
+		<sonar.organization>luispemorarod</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>bbd9f81e7a5fb424ff0e0e71c4f67ec76aabf672</sonar.login>
 	</properties>
 
 	<dependencies>
