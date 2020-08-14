@@ -19,7 +19,7 @@ import com.Project3.BackEnd.TicketsManagement.User;
 
 @WebFilter(filterName = "userAuthFilter", urlPatterns = "/api/admin/*")
 public class AdminAuthFilter  implements Filter {
-	private MD5 md5;
+	
 	private RegisteredUsers users = RegisteredUsers.getInstance();
 	/**
 	 * Validates if the headers "From" and "Authorization" match with the email and
@@ -41,7 +41,7 @@ public class AdminAuthFilter  implements Filter {
 	}
 	private boolean validateAuthorization(String password, String id) {
 		User user = users.getUser(id);
-		md5 = new MD5(password);
+		MD5 md5 = new MD5(password);
 		try {
 			password = md5.getMD5();
 		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
