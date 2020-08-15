@@ -39,8 +39,7 @@ public class AdminAuthFilter  implements Filter {
 		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
 			e.printStackTrace();
 		}
-		System.out.println(user.getPassword());
-		System.out.println(user.isAdmin());
+		
 		return password.equals(user.getPassword()) && user.isAdmin();
 	}
 

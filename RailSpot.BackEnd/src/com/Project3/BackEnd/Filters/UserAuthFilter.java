@@ -37,8 +37,6 @@ public class UserAuthFilter implements Filter {
 	
 	private boolean validateAuthorization(String password, String id) {
 		User user = users.getUser(id);
-		System.out.println(user.getPassword());
-		System.out.println(user.isAdmin());
 		MD5 md5 = new MD5(password);
 		try {
 			password = md5.getMD5();

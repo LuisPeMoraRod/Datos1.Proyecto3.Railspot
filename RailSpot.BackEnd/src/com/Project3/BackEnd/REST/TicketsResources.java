@@ -9,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -43,13 +44,10 @@ public class TicketsResources {
 	 */
 	@POST
 	@Path("/buy-ticket")
-	public Response buyTicket(JSONObject ticketRequest) {
-		String id = (String) ticketRequest.get("user");
-		String originName = (String) ticketRequest.get("origin");
-		String destinyName = (String) ticketRequest.get("destiny");
-		String date = (String) ticketRequest.get("date");
-		String hour = (String) ticketRequest.get("hour");
-		int amount = (int) ticketRequest.get("amount");
+	public Response buyTicket(@QueryParam("user") String id, @QueryParam("origin") String originName,
+			@QueryParam("destiny") String destinyName, @QueryParam("date") String date, @QueryParam("hour") String hour,
+			@QueryParam("amount") String amountString) {
+		int amount = Integer.parseInt(amountString);
 
 		Station origin = graph.getStation(originName);
 		Station destiny = graph.getStation(destinyName);
@@ -126,15 +124,13 @@ public class TicketsResources {
 			return Response.status(Status.OK).entity(ticketsByDate).build();
 		return Response.status(Status.NO_CONTENT).entity("There are no active tickets for this date.").build();
 	}
-	
+
 	@GET
 	@Path("/get-all-tickets")
 	public Response getAllTickets() {
 		ArrayList<Ticket> tickets = graph.getTickets();
 		return Response.status(Status.OK).entity(tickets).build();
 	}
-
-	
 
 	/**
 	 * Sets departure hour for next ticket
