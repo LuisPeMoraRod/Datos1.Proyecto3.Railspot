@@ -1,35 +1,26 @@
 package com.Project3.BackEnd.TicketsManagement;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
-	
+
 	private String id;
 	private String name;
 	private String email;
 	private String password;
 	private boolean admin;
-	private ArrayList<Ticket> tickets;
+	private List<Ticket> tickets;
 	private MD5 md5;
-	
-	public User(String id, String name, String email,String password, boolean admin) {
+
+	public User(String id, String name, String email, String password, boolean admin) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.admin = admin;
 		md5 = new MD5(password);
-		try {
-			setPassword();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchProviderException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.tickets = new ArrayList<Ticket>();
+		setPassword();
+		this.tickets = new ArrayList<>();
 	}
 
 	public String getId() {
@@ -60,8 +51,8 @@ public class User {
 		return password;
 	}
 
-	public void setPassword() throws NoSuchAlgorithmException, NoSuchProviderException {
-		
+	public void setPassword(){
+
 		this.password = md5.getMD5();
 	}
 
@@ -73,17 +64,16 @@ public class User {
 		this.admin = admin;
 	}
 
-	public ArrayList<Ticket> getTickets() {
+	public List<Ticket> getTickets() {
 		return tickets;
 	}
 
 	public void addTicket(Ticket ticket) {
 		this.tickets.add(0, ticket);
 	}
-	
+
 	public void removeTicket(Ticket ticket) {
 		this.tickets.remove(ticket);
 	}
-	
-	
+
 }

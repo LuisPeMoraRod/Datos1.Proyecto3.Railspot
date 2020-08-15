@@ -1,6 +1,7 @@
 package com.Project3.BackEnd.REST;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.ws.rs.Consumes;
@@ -50,9 +51,10 @@ public class TicketsResources {
 		Station origin = graph.getStation(originName);
 		Station destiny = graph.getStation(destinyName);
 		Dijkstra dijkstra = new Dijkstra();
-		ArrayList<Station> route = dijkstra.execute(origin, destiny);
-		ArrayList<Ticket> tickets = new ArrayList<Ticket>();
-		Station tempOrigin, tempDestiny;
+		List<Station> route = dijkstra.execute(origin, destiny);
+		List<Ticket> tickets = new ArrayList<>();
+		Station tempOrigin;
+		Station tempDestiny;
 		Connection connection;
 		Float previousDistance = (float) 0;
 		for (int i = 0; i < route.size() - 1; i++) {
@@ -81,7 +83,7 @@ public class TicketsResources {
 	@Path("/get-by-station/{stationName}")
 	public Response getByStation(@PathParam("stationName") String stationName) {
 		Station station = graph.getStation(stationName);
-		ArrayList<Ticket> tickets = station.getActiveTickets();
+		List<Ticket> tickets = station.getActiveTickets();
 		if (tickets != null)
 			return Response.status(Status.OK).entity(tickets).build();
 		return Response.status(Status.NO_CONTENT).entity("There are no active tickets for this station.").build();
@@ -97,7 +99,7 @@ public class TicketsResources {
 	@Path("/get-by-user/{id}")
 	public Response getByUser(@PathParam("id") String id) {
 		User user = users.getUser(id);
-		ArrayList<Ticket> tickets = user.getTickets();
+		List<Ticket> tickets = user.getTickets();
 		if (tickets != null)
 			return Response.status(Status.OK).entity(tickets).build();
 		return Response.status(Status.NO_CONTENT).entity("User has no tickets.").build();
@@ -112,13 +114,13 @@ public class TicketsResources {
 	@GET
 	@Path("/get-by-date/{date}")
 	public Response getByDate(@PathParam("date") String date) {
-		ArrayList<Ticket> tickets = graph.getTickets();
-		ArrayList<Ticket> ticketsByDate = new ArrayList<Ticket>();
+		List<Ticket> tickets = graph.getTickets();
+		List<Ticket> ticketsByDate = new ArrayList<>();
 		for (Ticket ticket : tickets) {
 			if (ticket.getDate().equals(date))
 				ticketsByDate.add(ticket);
 		}
-		if (ticketsByDate.size() > 0)
+		if (!(ticketsByDate.isEmpty()))
 			return Response.status(Status.OK).entity(ticketsByDate).build();
 		return Response.status(Status.NO_CONTENT).entity("There are no active tickets for this date.").build();
 	}
@@ -126,7 +128,7 @@ public class TicketsResources {
 	@GET
 	@Path("/get-all-tickets")
 	public Response getAllTickets() {
-		ArrayList<Ticket> tickets = graph.getTickets();
+		List<Ticket> tickets = graph.getTickets();
 		return Response.status(Status.OK).entity(tickets).build();
 	}
 
@@ -154,8 +156,8 @@ public class TicketsResources {
 	 */
 	public int parseHour(String hour) {
 		StringTokenizer tokenizer = new StringTokenizer(hour, ":");
-		int hourInt = Integer.parseInt(tokenizer.nextToken());
-		return hourInt;
+		return Integer.parseInt(tokenizer.nextToken());
+		
 	}
 
 	/**

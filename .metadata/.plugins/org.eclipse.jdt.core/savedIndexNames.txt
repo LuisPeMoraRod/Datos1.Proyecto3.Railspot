@@ -24,7 +24,6 @@ INDEX VERSION 1.131+D:\Libraries\Documents\GitHub\Datos1.Proyecto3\Datos1.Proyec
 711050520.index
 394793505.index
 3720716507.index
-637471641.index
 2928431209.index
 3993276655.index
 2476601890.index

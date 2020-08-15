@@ -1,8 +1,6 @@
 package com.Project3.BackEnd.Filters;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -38,11 +36,7 @@ public class UserAuthFilter implements Filter {
 	private boolean validateAuthorization(String password, String id) {
 		User user = users.getUser(id);
 		MD5 md5 = new MD5(password);
-		try {
-			password = md5.getMD5();
-		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-			e.printStackTrace();
-		}
+		password = md5.getMD5();
 		return password.equals(user.getPassword());
 	}
 

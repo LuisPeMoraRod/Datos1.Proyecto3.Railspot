@@ -1,6 +1,7 @@
 package com.Project3.BackEnd.RoutesManagement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONObject;
 
@@ -14,15 +15,15 @@ public class Station {
 	
 	private String name;
 	private String location;
-	private ArrayList<Connection> connections;
+	private List<Connection> connections;
 	private Float accumWeight;
-	private ArrayList<Ticket> activeTickets;
+	private List<Ticket> activeTickets;
 	
 	public Station (String name) {
 		this.name = name;
 		this.accumWeight = new Float(0.0);
-		this.connections = new ArrayList<Connection>();
-		this.activeTickets = new ArrayList<Ticket>();
+		this.connections = new ArrayList<>();
+		this.activeTickets = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -41,11 +42,11 @@ public class Station {
 		this.location = location;
 	}
 
-	public ArrayList<Connection> getConnections() {
+	public List<Connection> getConnections() {
 		return connections;
 	}
 
-	public void setConnections(ArrayList<Connection> connections) {
+	public void setConnections(List<Connection> connections) {
 		this.connections = connections;
 	}
 	
@@ -103,7 +104,7 @@ public class Station {
 		
 	}
 
-	public ArrayList<Ticket> getActiveTickets() {
+	public List<Ticket> getActiveTickets() {
 		return activeTickets;
 	}
 

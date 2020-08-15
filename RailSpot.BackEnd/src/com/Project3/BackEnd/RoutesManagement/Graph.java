@@ -1,17 +1,18 @@
 package com.Project3.BackEnd.RoutesManagement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.Project3.BackEnd.TicketsManagement.Ticket;
 
 public class Graph {
 	private static Graph graph = null;
-	private ArrayList<Station> stations;
-	private ArrayList<Ticket> tickets;
+	private List<Station> stations;
+	private List<Ticket> tickets;
 
 	private Graph() {
-		stations = new ArrayList<Station>();
-		tickets = new ArrayList<Ticket>();
+		stations = new ArrayList<>();
+		tickets = new ArrayList<>();
 	}
 
 	public static synchronized Graph getInstance() {
@@ -21,11 +22,11 @@ public class Graph {
 		return graph;
 	}
 
-	public ArrayList<Station> getStations() {
+	public List<Station> getStations() {
 		return stations;
 	}
 
-	public void setStations(ArrayList<Station> stations) {
+	public void setStations(List<Station> stations) {
 		this.stations = stations;
 	}
 
@@ -49,11 +50,11 @@ public class Graph {
 		return station;
 	}
 
-	public ArrayList<Ticket> getTickets() {
+	public List<Ticket> getTickets() {
 		return tickets;
 	}
 
-	public void setTickets(ArrayList<Ticket> tickets) {
+	public void setTickets(List<Ticket> tickets) {
 		this.tickets = tickets;
 	}
 	

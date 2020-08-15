@@ -1,15 +1,16 @@
 package com.Project3.BackEnd.REST;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.Project3.BackEnd.TicketsManagement.User;
 
 public class RegisteredUsers {
 	private static RegisteredUsers registeredUsers = null;
-	private ArrayList<User> users;
+	private List<User> users;
 
 	private RegisteredUsers() {
-		users = new ArrayList<User>();
+		users = new ArrayList<>();
 	}
 
 	public static synchronized RegisteredUsers getInstance() {
@@ -19,7 +20,7 @@ public class RegisteredUsers {
 		return registeredUsers;
 	}
 
-	public ArrayList<User> getUsers() {
+	public List<User> getUsers() {
 		return users;
 	}
 

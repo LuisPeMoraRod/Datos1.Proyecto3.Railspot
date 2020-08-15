@@ -3,6 +3,7 @@ package com.Project3.BackEnd.RoutesManagement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -14,24 +15,24 @@ public class Dijkstra {
 	 * @version 8/8/2020
 	 */
 
-	private ArrayList<Station> uncheckedStations; // Stations that haven't been checked by the algorithm
-	private ArrayList<Station> route;// Shows the shortest route from A to B
-	private HashMap<Station, Float> weights; // Every station with its weight
-	private HashMap<Station, Station> procedence; // Every station with the previous station in the route
+	private List<Station> uncheckedStations; // Stations that haven't been checked by the algorithm
+	private List<Station> route;// Shows the shortest route from A to B
+	private Map<Station, Float> weights; // Every station with its weight
+	private Map<Station, Station> procedence; // Every station with the previous station in the route
 	private Graph graph;
 
 	public Dijkstra() {
 		graph = Graph.getInstance();
-		uncheckedStations = new ArrayList<Station>();
+		uncheckedStations = new ArrayList<>();
 		// adds every station of the graph to the unchecked stations list
 		Station tempStation;
 		for (int i=0; i<graph.getStations().size();i++) {
 			tempStation = graph.getStations().get(i);
 			uncheckedStations.add(tempStation);
 		}
-		route = new ArrayList<Station>();
-		weights = new HashMap<Station, Float>();
-		procedence = new HashMap<Station, Station>();
+		route = new ArrayList<>();
+		weights = new HashMap<>();
+		procedence = new HashMap<>();
 	}
 
 	/**
@@ -42,12 +43,12 @@ public class Dijkstra {
 	 * @param destiny : Station
 	 * @return
 	 */
-	public ArrayList<Station> execute(Station origin, Station destiny) {
+	public List<Station> execute(Station origin, Station destiny) {
 		uncheckedStations.remove(origin); // removes the origin station from the unchecked stations list
 		weights.put(origin, (float) 0); // adds origin station with a 0 weight
 		procedence.put(origin, null); // add origin station with null procedence
 		Station tempStation = origin;
-		while (uncheckedStations.size() > 0 || tempStation!=null) {// iterates until uncheckedStations list is empty
+		while (!(uncheckedStations.isEmpty()) || tempStation!=null) {// iterates until uncheckedStations list is empty
 
 			if (tempStation.getConnections() != null) {// if station has at least one connection
 				for (Connection connection : tempStation.getConnections()) {
@@ -87,7 +88,7 @@ public class Dijkstra {
 		Station nearest = null;
 		Float distance = Float.MAX_VALUE;
 		for (Map.Entry<Station, Float> entry : this.weights.entrySet()) {
-			if (entry.getValue() < distance & uncheckedStations.contains(entry.getKey())) {
+			if (entry.getValue() < distance && uncheckedStations.contains(entry.getKey())) {
 				nearest = entry.getKey();
 				distance = entry.getValue();
 			}
@@ -105,17 +106,17 @@ public class Dijkstra {
 	 * @param destiny
 	 * @return route : ArrayList<Station>
 	 */
-	public ArrayList<Station> getOptimumRoute(HashMap<Station, Station> procedence, Station origin, Station destiny) {
-		ArrayList<Station> route = new ArrayList<Station>();
+	public List<Station> getOptimumRoute(Map<Station, Station> procedence, Station origin, Station destiny) {
+		List<Station> optimumRoute = new ArrayList<>();
 		Station tempDestiny = destiny;
 		boolean stop = false;
 		while (!stop) {
 			Iterator<Entry<Station, Station>> iterator;
 			iterator = procedence.entrySet().iterator();
 			while (iterator.hasNext()) {
-				Map.Entry<Station, Station> mapEntry = (Map.Entry<Station, Station>) iterator.next();
+				Map.Entry<Station, Station> mapEntry =  iterator.next();
 				if (mapEntry.getKey().equals(tempDestiny)) {
-					route.add(0, tempDestiny);
+					optimumRoute.add(0, tempDestiny);
 					if (!mapEntry.getValue().equals(origin))tempDestiny = mapEntry.getValue();
 					else stop = true;
 				}
@@ -123,8 +124,8 @@ public class Dijkstra {
 			}
 		}
 
-		route.add(0, origin);
-		return route;
+		optimumRoute.add(0, origin);
+		return optimumRoute;
 
 	}
 
