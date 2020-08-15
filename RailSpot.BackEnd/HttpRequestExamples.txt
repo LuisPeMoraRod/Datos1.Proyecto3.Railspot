@@ -58,9 +58,7 @@ Get tickets by station (GET)
 http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-station/SanJose
 
 Get all active tickets (GET)
-http://localhost:8080/RailSpot.BackEnd/api/tickets/get-all-tickets
+http://localhost:8080/RailSpot.BackEnd/api/tickets/get-all-tickets?From=901090674&Authorization=password
 
-Andrés Martinez
-Luis Pedro Morales 
-Juan Ignacio Navarro
-Mónica Waterhouse
+
+http://localhost:8080/RailSpot.BackEnd/api/admin/new-station?name=Alajuela&From=901090674&Authorization=password

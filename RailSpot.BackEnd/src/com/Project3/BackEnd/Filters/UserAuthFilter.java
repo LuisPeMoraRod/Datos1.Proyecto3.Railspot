@@ -19,29 +19,27 @@ import com.Project3.BackEnd.TicketsManagement.User;
 
 @WebFilter(filterName = "userAuthFilter", urlPatterns = "/api/tickets/*")
 public class UserAuthFilter implements Filter {
-	private MD5 md5;
 	private RegisteredUsers users = RegisteredUsers.getInstance();
-	/**
-	 * Validates if the headers "From" and "Authorization" match with the email and
-	 * password of a user
-	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		String authorizationHeader = httpRequest.getHeader("Authorization");
-		String fromHeader = httpRequest.getHeader("From");
+		String authorizationHeader = httpRequest.getParameter("Authorization");
+		String fromHeader = httpRequest.getParameter("From");
+		
 		if (validateAuthorization(authorizationHeader,fromHeader)) {			
 			chain.doFilter(request, response);
 		} else {
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
 			httpResponse.setStatus(401);
 		}
-
 	}
+	
 	private boolean validateAuthorization(String password, String id) {
 		User user = users.getUser(id);
-		md5 = new MD5(password);
+		System.out.println(user.getPassword());
+		System.out.println(user.isAdmin());
+		MD5 md5 = new MD5(password);
 		try {
 			password = md5.getMD5();
 		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {

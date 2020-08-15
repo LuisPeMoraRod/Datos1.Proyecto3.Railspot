@@ -17,7 +17,7 @@ import com.Project3.BackEnd.REST.RegisteredUsers;
 import com.Project3.BackEnd.TicketsManagement.MD5;
 import com.Project3.BackEnd.TicketsManagement.User;
 
-@WebFilter(filterName = "userAuthFilter", urlPatterns = "/api/admin/*")
+@WebFilter(filterName = "adminAuthFilter", urlPatterns = "/api/admin/*")
 public class AdminAuthFilter  implements Filter {
 	
 	private RegisteredUsers users = RegisteredUsers.getInstance();
@@ -28,15 +28,7 @@ public class AdminAuthFilter  implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		String authorizationHeader = httpRequest.getHeader("Authorization");
-		String fromHeader = httpRequest.getHeader("From");
-		if (validateAuthorization(authorizationHeader,fromHeader)) {			
-			chain.doFilter(request, response);
-		} else {
-			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.setStatus(401);
-		}
+		filter(request, response, chain);
 
 	}
 	private boolean validateAuthorization(String password, String id) {
@@ -47,8 +39,23 @@ public class AdminAuthFilter  implements Filter {
 		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
 			e.printStackTrace();
 		}
+		System.out.println(user.getPassword());
+		System.out.println(user.isAdmin());
 		return password.equals(user.getPassword()) && user.isAdmin();
 	}
 
+	private void filter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		String authorizationHeader = httpRequest.getParameter("Authorization");
+		String fromHeader = httpRequest.getParameter("From");
+		if (validateAuthorization(authorizationHeader,fromHeader)) {			
+			chain.doFilter(request, response);
+		} else {
+			HttpServletResponse httpResponse = (HttpServletResponse) response;
+			httpResponse.setStatus(401);
+		}
+	}
 }
 
