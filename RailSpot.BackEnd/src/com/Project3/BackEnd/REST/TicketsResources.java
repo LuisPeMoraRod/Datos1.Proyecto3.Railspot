@@ -14,8 +14,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.json.simple.JSONObject;
-
 import com.Project3.BackEnd.RoutesManagement.Connection;
 import com.Project3.BackEnd.RoutesManagement.Dijkstra;
 import com.Project3.BackEnd.RoutesManagement.Graph;

@@ -23,7 +23,6 @@
 <fullyQualifiedTypeName name="javax.ws.rs.GET"/>
 <fullyQualifiedTypeName name="javax.ws.rs.PathParam"/>
 <fullyQualifiedTypeName name="com.Project3.BackEnd.TicketsManagement.Ticket"/>
-<fullyQualifiedTypeName name="javax.ws.rs.QueryParam"/>
 <fullyQualifiedTypeName name="javax.ws.rs.DELETE"/>
 <fullyQualifiedTypeName name="javax.servlet.annotation.WebFilter"/>
 <fullyQualifiedTypeName name="javax.servlet.Filter"/>
@@ -36,4 +35,6 @@
 <fullyQualifiedTypeName name="java.security.NoSuchProviderException"/>
 <fullyQualifiedTypeName name="javax.ws.rs.POST"/>
 <fullyQualifiedTypeName name="javax.ws.rs.core.Response.Status"/>
+<fullyQualifiedTypeName name="javax.ws.rs.ext.Provider"/>
+<fullyQualifiedTypeName name="javax.ws.rs.QueryParam"/>
 </qualifiedTypeNameHistroy>

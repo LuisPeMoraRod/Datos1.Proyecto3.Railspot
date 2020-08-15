@@ -50,16 +50,17 @@ public class AdminResources {
 	@GET
 	@Path("/{stationName}")
 	public Response getStation(@PathParam("stationName") String stationName) {
+		String entity = String.format("Error: station %s doesn't exist.", stationName);
 		Station station = graph.getStation(stationName);
 		if (station != null)
 			return Response.status(Status.OK).entity(station).build();
 		else
-			return Response.status(Status.NOT_FOUND).entity("Error: station " + stationName + " doesn't exist.")
-					.build();
+			return Response.status(Status.NOT_FOUND).entity(entity).build();
 	}
 
 	/**
 	 * Delete a station only if it has no active tickets
+	 * 
 	 * @param stationName : String
 	 * @return response : Response
 	 */
@@ -67,13 +68,14 @@ public class AdminResources {
 	@Path("/delete-station/{stationName}")
 	public Response deleteStation(@PathParam("stationName") String stationName) {
 		Station station = graph.getStation(stationName);
+		String entity = String.format("Error: station %s doesn't exist.", stationName);
 		if (station != null) {
-			if (station.getActiveTickets().size()>0)
+			if (station.getActiveTickets().size() > 0)
 				return Response.status(Status.CONFLICT).entity("Error: station has active tickets.").build();
 			graph.removeStation(station);
 			return Response.status(Status.OK).entity("Station removed from the graph successfully.").build();
 		}
-		return Response.status(Status.NOT_FOUND).entity("Error: no station found with the name "+stationName).build();
+		return Response.status(Status.NOT_FOUND).entity(entity).build();
 	}
 
 	/**
@@ -90,13 +92,14 @@ public class AdminResources {
 			@QueryParam("destiny") String destinyName, @QueryParam("distance") String dist) {
 		Station station = graph.getStation(stationName);
 		Station destiny = graph.getStation(destinyName);
+		String entity = String.format("Error: station %s doesn't exist.", stationName);
 		if (station == null)
-			return Response.status(Status.NOT_FOUND).entity("Error: station " + stationName + " doesn't exist.")
-					.build();
+			return Response.status(Status.NOT_FOUND).entity(entity).build();
 
-		if (destiny == null)
-			return Response.status(Status.NOT_FOUND).entity("Error: station " + destinyName + " doesn't exist.")
-					.build();
+		if (destiny == null) {
+			entity = String.format("Error: station %s doesn't exist.", destinyName);
+			return Response.status(Status.NOT_FOUND).entity(entity).build();
+		}
 		Float distance = Float.parseFloat(dist);
 		Connection connection = new Connection(destiny, distance);
 		station.addConnection(connection);
@@ -109,21 +112,22 @@ public class AdminResources {
 			@QueryParam("destiny") String destinyName, @QueryParam("distance") String dist) {
 		Station station = graph.getStation(stationName);
 		Station destiny = graph.getStation(destinyName);
+		String entity = String.format("Error: station %s doesn't exist.", stationName);
 		if (station == null)
-			return Response.status(Status.NOT_FOUND).entity("Error: station " + stationName + " doesn't exist.")
-					.build();
+			return Response.status(Status.NOT_FOUND).entity(entity).build();
 
-		else if (destiny == null)
-			return Response.status(Status.NOT_FOUND).entity("Error: station " + destinyName + " doesn't exist.")
-					.build();
+		else if (destiny == null) {
+			entity = String.format("Error: station %s doesn't exist.", destinyName);
+			return Response.status(Status.NOT_FOUND).entity(entity).build();
+		}
 
-		if (station.getActiveTickets().size() > 0)
-			return Response.status(Status.CONFLICT).entity("Error: station " + stationName + " has active tickets.")
-					.build();
-		else if (destiny.getActiveTickets().size() > 0)
-			return Response.status(Status.CONFLICT).entity("Error: station " + destinyName + " has active tickets.")
-					.build();
-		else {
+		if (!(station.getActiveTickets().isEmpty())) {
+			entity = String.format("Error: station %s has active tickets.", stationName);
+			return Response.status(Status.CONFLICT).entity(entity).build();
+		} else if (!(destiny.getActiveTickets().isEmpty())) {
+			entity = String.format("Error: station %s has active tickets.", destinyName);
+			return Response.status(Status.CONFLICT).entity(entity).build();
+		} else {
 			Float distance = Float.parseFloat(dist);
 			Connection connection = new Connection(destiny, distance);
 			if (station.editConnection(connection))
@@ -138,20 +142,25 @@ public class AdminResources {
 	public Response deleteConnection(@PathParam("stationName") String stationName,
 			@QueryParam("destiny") String destinyName) {
 		Station station = graph.getStation(stationName);
+		String entity = String.format("Error: station %s doesn't exist.", stationName);
 		if (station == null)
-			return Response.status(Status.NOT_FOUND).entity("Error: station " + stationName + " doesn't exist.")
-					.build();
-		if (station.getActiveTickets().size() > 0)
-			return Response.status(Status.CONFLICT).entity("Error: station " + stationName + " has active tickets.")
-					.build();
-		else {
+			return Response.status(Status.NOT_FOUND).entity(entity).build();
+		if (!(station.getActiveTickets().isEmpty())) {
+			entity = String.format("Error: station %s has active tickets.", stationName);
+			return Response.status(Status.CONFLICT).entity(entity).build();
+		}
+		if (!(station.getConnections().size() > 1)) {
+			entity = String.format("Error: station %s can't have no connections.", stationName);
+			return Response.status(Status.CONFLICT).entity(entity).build();
+		} else {
 			Connection connection = station.getConnection(destinyName);
 			if (station.hasConnection(connection)) {
 				station.removeConnection(connection);
 				return Response.status(Status.OK).entity("Connection deleted successfully").build();
 			} else {
+				entity = String.format("Error: connection to %s is unexistent.", destinyName);
 				return Response.status(Status.NOT_FOUND)
-						.entity("Error: connection to " + stationName + " is unexistent.").build();
+						.entity(entity).build();
 			}
 		}
 	}
@@ -167,12 +176,12 @@ public class AdminResources {
 	@Path("/remove-unactive-tickets")
 	public Response removeTicketsByDate(@QueryParam("date") String date, @QueryParam("hour") String hour) {
 		ArrayList<Ticket> tickets = graph.getTickets();
+		String entity = String.format("Tickets for %s at %s were removes successfully.", date, hour);
 		for (Ticket ticket : tickets) {
 			if (ticket.getDate().equals(date) && ticket.getHour().equals(hour))
 				removeTicketFromQueues(ticket);
 		}
-		return Response.status(Status.OK).entity("Tickets for " + date + " at " + hour + " were removed successfully.")
-				.build();
+		return Response.status(Status.OK).entity(entity).build();
 	}
 
 	/**

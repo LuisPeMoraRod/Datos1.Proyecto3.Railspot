@@ -15,12 +15,12 @@ import com.Project3.BackEnd.TicketsManagement.User;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UsersResources {
-	User user;
-	RegisteredUsers users = RegisteredUsers.getInstance();
-
+	
 	@GET
 	@Path("/{id}")
 	public Response getUser(@PathParam("id") String id) {
+		User user;
+		RegisteredUsers users = RegisteredUsers.getInstance();
 		user = users.getUser(id);
 		if (user != null)
 			return Response.status(Status.OK).entity(user).build();
